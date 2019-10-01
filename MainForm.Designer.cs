@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlChessBoard = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.btnBegin = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblBeginCellName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,20 +63,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.timerFindPath = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlChessBoard
@@ -84,7 +86,7 @@
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnBegin);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.pnlBanner);
@@ -92,6 +94,53 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(249, 442);
             this.panel2.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label24);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Location = new System.Drawing.Point(3, 329);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(240, 60);
+            this.panel3.TabIndex = 5;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(60, 6);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(92, 16);
+            this.label24.TabIndex = 9;
+            this.label24.Text = "Tốc độ duyệt:";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.trackBar1);
+            this.panel1.Location = new System.Drawing.Point(4, 29);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(231, 28);
+            this.panel1.TabIndex = 3;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.trackBar1.Location = new System.Drawing.Point(3, -5);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(225, 45);
+            this.trackBar1.TabIndex = 0;
+            // 
+            // btnBegin
+            // 
+            this.btnBegin.Font = new System.Drawing.Font("Cambria", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBegin.Location = new System.Drawing.Point(3, 392);
+            this.btnBegin.Name = "btnBegin";
+            this.btnBegin.Size = new System.Drawing.Size(241, 45);
+            this.btnBegin.TabIndex = 4;
+            this.btnBegin.Text = "Bắt đầu !";
+            this.btnBegin.UseVisualStyleBackColor = true;
+            this.btnBegin.Click += new System.EventHandler(this.btnBegin_Click);
             // 
             // label3
             // 
@@ -119,6 +168,48 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(240, 123);
             this.panel4.TabIndex = 1;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Maroon;
+            this.label23.Location = new System.Drawing.Point(125, 93);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(21, 22);
+            this.label23.TabIndex = 8;
+            this.label23.Text = "1";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(15, 97);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(112, 16);
+            this.label22.TabIndex = 7;
+            this.label22.Text = "Tổng số nước đi:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.Maroon;
+            this.label21.Location = new System.Drawing.Point(106, 64);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(47, 22);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "A - 1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Vị trí hiện tại:";
             // 
             // label20
             // 
@@ -332,93 +423,10 @@
             this.label19.TabIndex = 24;
             this.label19.Text = "7";
             // 
-            // label2
+            // timerFindPath
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 16);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Vị trí hiện tại:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Maroon;
-            this.label21.Location = new System.Drawing.Point(106, 64);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(47, 22);
-            this.label21.TabIndex = 6;
-            this.label21.Text = "A - 1";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(15, 97);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(112, 16);
-            this.label22.TabIndex = 7;
-            this.label22.Text = "Tổng số nước đi:";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.Maroon;
-            this.label23.Location = new System.Drawing.Point(125, 93);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(21, 22);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "1";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.trackBar1);
-            this.panel1.Location = new System.Drawing.Point(4, 29);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(231, 28);
-            this.panel1.TabIndex = 3;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.trackBar1.Location = new System.Drawing.Point(3, -5);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(225, 45);
-            this.trackBar1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Cambria", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(3, 392);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(241, 45);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Bắt đầu !";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Cambria", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(60, 6);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(92, 16);
-            this.label24.TabIndex = 9;
-            this.label24.Text = "Tốc độ duyệt:";
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label24);
-            this.panel3.Controls.Add(this.panel1);
-            this.panel3.Location = new System.Drawing.Point(3, 329);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(240, 60);
-            this.panel3.TabIndex = 5;
+            this.timerFindPath.Interval = 500000000;
+            this.timerFindPath.Tick += new System.EventHandler(this.timerFindPath_Tick);
             // 
             // formMain
             // 
@@ -451,13 +459,13 @@
             this.Text = "Phần mềm giải bài toán mã đi tuần";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -496,9 +504,10 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Timer timerFindPath;
     }
 }
 

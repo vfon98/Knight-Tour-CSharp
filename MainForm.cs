@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,8 @@ namespace Knight_Tour_Solution
         public formMain()
         {
             InitializeComponent();
+
+            new KnightTourAlgorithm(0, 0);
             // AVOID PANEL FLICKERING
             typeof(Panel).InvokeMember("DoubleBuffered",
             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
@@ -64,6 +67,53 @@ namespace Knight_Tour_Solution
         private void drawImageCentered(Graphics g, Image img, int x, int y)
         {
             g.DrawImage(img, x - img.Width / 2, y - img.Height / 2);
+        }
+
+        private void btnBegin_Click(object sender, EventArgs e)
+        {
+            btnBegin.Enabled = false;
+            StartFindPathAsync();
+        }
+
+
+        private void StartFindPathAsync()
+        {
+            KnightTourAlgorithm algo = new KnightTourAlgorithm(0, 0);
+            int[,] resultChessboard = algo.FindPath();
+            if (resultChessboard != null)
+            {
+                string result = "";
+                btnBegin.Enabled = true;
+                for (int i = 0; i < Cons.BOARD_SIZE; i++)
+                {
+                    for (int j = 0; j < Cons.BOARD_SIZE; j++)
+                    {
+                        result += resultChessboard[i, j] + " ";
+                    }
+                    result += "\n";
+                }
+                MessageBox.Show("Tim thay duong di\n" + result);
+            }
+            else
+            {
+                MessageBox.Show("Khong tim thay");
+            }
+        }
+
+        private void timerFindPath_Tick(object sender, EventArgs e)
+        {
+
+            KnightTourAlgorithm algo = new KnightTourAlgorithm(0, 0);
+            int[,] resultChessboard = algo.FindPath();
+            if (resultChessboard != null)
+            {
+                btnBegin.Enabled = true;
+                MessageBox.Show("Tim thay duong di");
+            }
+            else
+            {
+                MessageBox.Show("Khong tim thay");
+            }
         }
     }
 }

@@ -10,8 +10,10 @@ namespace Knight_Tour_Solution
     public class Cons
     {
         public static int BOARD_WIDTH = 440;
+        public static int BOARD_SIZE = 5;
+        public static int TOTAL_CELLS = BOARD_SIZE * BOARD_SIZE;
         public static int CELL_SIZE = 55;
-        public static float CELL_CENTER = 55 / 2;
+        public static float CELL_CENTER = CELL_SIZE / 2;
         public static Image HORSE_SPRITE = Properties.Resources.horse_sprite;
         public static String[] ROW_NAME = { "A", "B", "C", "D", "E", "F", "G", "H" };
         public static String[] COL_NAME = { "8", "7", "6", "5", "4", "3", "2", "1" };
