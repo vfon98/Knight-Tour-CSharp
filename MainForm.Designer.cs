@@ -63,7 +63,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.timerFindPath = new System.Windows.Forms.Timer(this.components);
+            this.timerShowSolution = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -133,6 +133,7 @@
             // 
             // btnBegin
             // 
+            this.btnBegin.Enabled = false;
             this.btnBegin.Font = new System.Drawing.Font("Cambria", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBegin.Location = new System.Drawing.Point(3, 392);
             this.btnBegin.Name = "btnBegin";
@@ -423,10 +424,10 @@
             this.label19.TabIndex = 24;
             this.label19.Text = "7";
             // 
-            // timerFindPath
+            // timerShowSolution
             // 
-            this.timerFindPath.Interval = 500000000;
-            this.timerFindPath.Tick += new System.EventHandler(this.timerFindPath_Tick);
+            this.timerShowSolution.Interval = 400;
+            this.timerShowSolution.Tick += new System.EventHandler(this.timerShowSolution_Tick);
             // 
             // formMain
             // 
@@ -507,7 +508,7 @@
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Timer timerFindPath;
+        private System.Windows.Forms.Timer timerShowSolution;
     }
 }
 

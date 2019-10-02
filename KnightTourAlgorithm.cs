@@ -9,19 +9,20 @@ namespace Knight_Tour_Solution
     class KnightTourAlgorithm
     {
         private int[,] chessBoard;
-        private int[,] resultBoard;
+        private int[,] solutionArray;
         private readonly int[] dX;
         private readonly int[] dY;
         private int stepNum;
         private int beginX;
         private int beginY;
+        private Stack<int[]> solution = new Stack<int[]>();
 
         public KnightTourAlgorithm(int beginX, int beginY)
         {
             // ALL CHESSBOARD CELLS ASSIGNED AS 0
             this.chessBoard = new int[Cons.BOARD_SIZE, Cons.BOARD_SIZE];
+            this.solutionArray = new int[Cons.TOTAL_CELLS, 2];
             this.chessBoard[beginX, beginY] = 1;
-            this.resultBoard = new int[Cons.BOARD_SIZE, Cons.BOARD_SIZE];
             // POSIBLE STEP OF HORSE KNIGHT
             this.dX = new int[] { -2, -2, -1, +1, +2, +2, +1, -1 };
             this.dY = new int[] { +1, -1, -2, -2, -1, +1, +2, +2 };
@@ -72,7 +73,10 @@ namespace Knight_Tour_Solution
                 if (IsValidMove(nextX, nextY))
                 {
                     chessBoard[nextX, nextY] = stepNum;
+                    solutionArray[stepNum - 1, 0] = nextX;
+                    solutionArray[stepNum - 1, 1] = nextY;
                     stepNum++;
+                  
                     if (TryMovingTo(nextX, nextY))
                         return true;
                     else
@@ -90,7 +94,7 @@ namespace Knight_Tour_Solution
         {
             if (TryMovingTo(beginX, beginY))
             {
-                return this.chessBoard;
+                return this.solutionArray;
             }
             else
             {

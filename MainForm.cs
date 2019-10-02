@@ -15,11 +15,14 @@ namespace Knight_Tour_Solution
 {
     public partial class formMain : Form
     {
+        private int curRowIndex = 0;
+        private int curColIndex = 0;
+        private int i = 0;
+        private int[,] solutionArray;
         public formMain()
         {
             InitializeComponent();
 
-            new KnightTourAlgorithm(0, 0);
             // AVOID PANEL FLICKERING
             typeof(Panel).InvokeMember("DoubleBuffered",
             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
@@ -36,9 +39,9 @@ namespace Knight_Tour_Solution
             Graphics g = e.Graphics;
             Image bgBlack = Properties.Resources.bg_black;
             Image bgWhite = Properties.Resources.bg_white;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < Cons.BOARD_SIZE; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < Cons.BOARD_SIZE; j++)
                 {
                     if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
                     {
@@ -54,45 +57,50 @@ namespace Knight_Tour_Solution
 
         private void pnlChessBoard_MouseClick(object sender, MouseEventArgs e)
         {
+            btnBegin.Enabled = true;
             // GET CELL NAME
-            int rowIndex = e.X / Cons.CELL_SIZE;
-            int colIndex = e.Y / Cons.CELL_SIZE;
-            lblBeginCellName.Text = Cons.GetCellName(rowIndex, colIndex);
+            curColIndex = e.X / Cons.CELL_SIZE;
+            curRowIndex = e.Y / Cons.CELL_SIZE;
+            lblBeginCellName.Text = Cons.GetCellName(curRowIndex, curColIndex);
             // DRAW KNIGHT PIECE
             this.Refresh();
             Graphics g = pnlChessBoard.CreateGraphics();
-            drawImageCentered(g, Cons.HORSE_SPRITE, rowIndex * 55 + 55 / 2, colIndex * 55 + 55 / 2);
+            drawImageAtCell(g, Cons.HORSE_SPRITE, curColIndex, curRowIndex);
         }
 
-        private void drawImageCentered(Graphics g, Image img, int x, int y)
+        private void drawImageAtCell(Graphics g, Image img, int col, int row)
         {
-            g.DrawImage(img, x - img.Width / 2, y - img.Height / 2);
+            float posX = (col * Cons.CELL_SIZE + Cons.CELL_CENTER) - img.Height / 2;
+            float posY = (row * Cons.CELL_SIZE + Cons.CELL_CENTER) - img.Width / 2;
+            g.DrawImage(img, posX, posY);
         }
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
             btnBegin.Enabled = false;
-            StartFindPathAsync();
+            StartFindPath(curRowIndex, curColIndex);
         }
 
 
-        private void StartFindPathAsync()
+        private void StartFindPath(int beginX, int beginY)
         {
-            KnightTourAlgorithm algo = new KnightTourAlgorithm(0, 0);
-            int[,] resultChessboard = algo.FindPath();
-            if (resultChessboard != null)
+            KnightTourAlgorithm algo = new KnightTourAlgorithm(beginX, beginY);
+            solutionArray = algo.FindPath();
+            if (solutionArray != null)
             {
                 string result = "";
-                btnBegin.Enabled = true;
-                for (int i = 0; i < Cons.BOARD_SIZE; i++)
+                //btnBegin.Enabled = true;
+                for (int i = 0; i < Cons.TOTAL_CELLS; i++)
                 {
-                    for (int j = 0; j < Cons.BOARD_SIZE; j++)
+                    for (int j = 0; j < 2; j++)
                     {
-                        result += resultChessboard[i, j] + " ";
+                        result += solutionArray[i, j] + " ";
                     }
                     result += "\n";
                 }
                 MessageBox.Show("Tim thay duong di\n" + result);
+                btnBegin.Enabled = false;
+                timerShowSolution.Start();
             }
             else
             {
@@ -100,20 +108,21 @@ namespace Knight_Tour_Solution
             }
         }
 
-        private void timerFindPath_Tick(object sender, EventArgs e)
+        private void timerShowSolution_Tick(object sender, EventArgs e)
         {
-
-            KnightTourAlgorithm algo = new KnightTourAlgorithm(0, 0);
-            int[,] resultChessboard = algo.FindPath();
-            if (resultChessboard != null)
+            if (i == Cons.TOTAL_CELLS)
             {
-                btnBegin.Enabled = true;
-                MessageBox.Show("Tim thay duong di");
+                timerShowSolution.Stop();
+                MessageBox.Show("Hoàn thành !");
+                return;
             }
-            else
-            {
-                MessageBox.Show("Khong tim thay");
-            }
+            Graphics g = pnlChessBoard.CreateGraphics();
+            drawImageAtCell(g, Cons.HORSE_SPRITE, solutionArray[i, 0], solutionArray[i, 1]);
+            //if (i != 0)
+            //{
+            //    drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[i - 1, 0], solutionArray[i - 1, 1]);
+            //}
+            Debug.WriteLine(i++);
         }
     }
 }
