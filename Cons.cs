@@ -16,6 +16,7 @@ namespace Knight_Tour_Solution
         public static float CELL_CENTER = CELL_SIZE / 2;
         public static Image HORSE_SPRITE = Properties.Resources.horse_sprite;
         public static Image CHECKED_SPRITE = Properties.Resources._checked;
+        public static Image CROSS_SPRITE = Properties.Resources.cross;
         public static String[] ROW_NAME = { "A", "B", "C", "D", "E", "F", "G", "H" };
         public static String[] COL_NAME = { "8", "7", "6", "5", "4", "3", "2", "1" };
 

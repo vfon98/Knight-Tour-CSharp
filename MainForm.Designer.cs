@@ -34,7 +34,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label24 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackbarSpeed = new System.Windows.Forms.TrackBar();
             this.btnBegin = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -67,7 +67,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackbarSpeed)).BeginInit();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,19 +117,23 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.trackBar1);
+            this.panel1.Controls.Add(this.trackbarSpeed);
             this.panel1.Location = new System.Drawing.Point(4, 29);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(231, 28);
             this.panel1.TabIndex = 3;
             // 
-            // trackBar1
+            // trackbarSpeed
             // 
-            this.trackBar1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.trackBar1.Location = new System.Drawing.Point(3, -5);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(225, 45);
-            this.trackBar1.TabIndex = 0;
+            this.trackbarSpeed.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.trackbarSpeed.Location = new System.Drawing.Point(3, -5);
+            this.trackbarSpeed.Maximum = 9;
+            this.trackbarSpeed.Minimum = 1;
+            this.trackbarSpeed.Name = "trackbarSpeed";
+            this.trackbarSpeed.Size = new System.Drawing.Size(225, 45);
+            this.trackbarSpeed.TabIndex = 0;
+            this.trackbarSpeed.Value = 5;
+            this.trackbarSpeed.Scroll += new System.EventHandler(this.trackbarSpeed_Scroll);
             // 
             // btnBegin
             // 
@@ -426,7 +430,7 @@
             // 
             // timerShowSolution
             // 
-            this.timerShowSolution.Interval = 400;
+            this.timerShowSolution.Interval = 1000;
             this.timerShowSolution.Tick += new System.EventHandler(this.timerShowSolution_Tick);
             // 
             // formMain
@@ -464,7 +468,7 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackbarSpeed)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
@@ -504,7 +508,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackbarSpeed;
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label24;

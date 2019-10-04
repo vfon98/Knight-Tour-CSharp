@@ -28,9 +28,9 @@ namespace Knight_Tour_Solution
             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
             null, pnlChessBoard, new object[] { true });
 
-            typeof(Panel).InvokeMember("DoubleBuffered",
-             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-             null, pnlBanner, new object[] { true });
+            //typeof(Panel).InvokeMember("DoubleBuffered",
+            // BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+            // null, pnlBanner, new object[] { true });
         }
 
         private void pnlChessBoard_Paint(object sender, PaintEventArgs e)
@@ -63,7 +63,7 @@ namespace Knight_Tour_Solution
             curRowIndex = e.Y / Cons.CELL_SIZE;
             lblBeginCellName.Text = Cons.GetCellName(curRowIndex, curColIndex);
             // DRAW KNIGHT PIECE
-            this.Refresh();
+            pnlChessBoard.Refresh();
             Graphics g = pnlChessBoard.CreateGraphics();
             drawImageAtCell(g, Cons.HORSE_SPRITE, curColIndex, curRowIndex);
         }
@@ -79,6 +79,7 @@ namespace Knight_Tour_Solution
         {
             btnBegin.Enabled = false;
             StartFindPath(curRowIndex, curColIndex);
+            
         }
 
 
@@ -99,7 +100,7 @@ namespace Knight_Tour_Solution
                     result += "\n";
                 }
                 MessageBox.Show("Tim thay duong di\n" + result);
-                btnBegin.Enabled = false;
+                pnlChessBoard.Enabled = false;
                 timerShowSolution.Start();
             }
             else
@@ -114,15 +115,24 @@ namespace Knight_Tour_Solution
             {
                 timerShowSolution.Stop();
                 MessageBox.Show("Hoàn thành !");
+                btnBegin.Enabled = false;
+                pnlChessBoard.Enabled = true;
                 return;
             }
             Graphics g = pnlChessBoard.CreateGraphics();
             drawImageAtCell(g, Cons.HORSE_SPRITE, solutionArray[i, 0], solutionArray[i, 1]);
-            //if (i != 0)
-            //{
-            //    drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[i - 1, 0], solutionArray[i - 1, 1]);
-            //}
+            if (i != 0)
+            {
+                drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[i - 1, 0], solutionArray[i - 1, 1]);
+            }
             Debug.WriteLine(i++);
+        }
+
+        private void trackbarSpeed_Scroll(object sender, EventArgs e)
+        {
+            int delayTime = trackbarSpeed.Value * 200;
+            Debug.WriteLine(delayTime);
+            timerShowSolution.Interval = delayTime;
         }
     }
 }
