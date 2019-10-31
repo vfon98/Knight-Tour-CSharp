@@ -17,11 +17,13 @@ namespace Knight_Tour_Solution
     {
         private int curRowIndex = 0;
         private int curColIndex = 0;
-        private int i = 0;
+        private int step = 0;
         private int[,] solutionArray;
         public formMain()
         {
             InitializeComponent();
+
+            timerShowSolution.Interval = trackbarSpeed.Value * Cons.KNIGHT_SPEED;
 
             // AVOID PANEL FLICKERING
             typeof(Panel).InvokeMember("DoubleBuffered",
@@ -45,11 +47,11 @@ namespace Knight_Tour_Solution
                 {
                     if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
                     {
-                        g.DrawImage(bgWhite, i * 55, j * 55, 55, 55);
+                        g.DrawImage(bgWhite, i * Cons.CELL_WIDTH, j * Cons.CELL_WIDTH, Cons.CELL_WIDTH, Cons.CELL_WIDTH);
                     }
                     else if ((i % 2 != 0 && j % 2 == 0) || (i % 2 == 0 && j % 2 != 0))
                     {
-                        g.DrawImage(bgBlack, i * 55, j * 55, 55, 55);
+                        g.DrawImage(bgBlack, i * Cons.CELL_WIDTH, j * Cons.CELL_WIDTH, Cons.CELL_WIDTH, Cons.CELL_WIDTH);
                     }
                 }
             }
@@ -59,9 +61,9 @@ namespace Knight_Tour_Solution
         {
             btnBegin.Enabled = true;
             // GET CELL NAME
-            curColIndex = e.X / Cons.CELL_SIZE;
-            curRowIndex = e.Y / Cons.CELL_SIZE;
-            lblBeginCellName.Text = Cons.GetCellName(curRowIndex, curColIndex);
+            curColIndex = e.X / Cons.CELL_WIDTH;
+            curRowIndex = e.Y / Cons.CELL_WIDTH;
+            lblCurrentCellName.Text = Cons.GetCellName(curRowIndex, curColIndex);
             // DRAW KNIGHT PIECE
             pnlChessBoard.Refresh();
             Graphics g = pnlChessBoard.CreateGraphics();
@@ -70,16 +72,19 @@ namespace Knight_Tour_Solution
 
         private void drawImageAtCell(Graphics g, Image img, int col, int row)
         {
-            float posX = (col * Cons.CELL_SIZE + Cons.CELL_CENTER) - img.Height / 2;
-            float posY = (row * Cons.CELL_SIZE + Cons.CELL_CENTER) - img.Width / 2;
+            float posX = (col * Cons.CELL_WIDTH + Cons.CELL_CENTER) - img.Height / 2;
+            float posY = (row * Cons.CELL_WIDTH + Cons.CELL_CENTER) - img.Width / 2;
             g.DrawImage(img, posX, posY);
         }
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
             btnBegin.Enabled = false;
-            StartFindPath(curRowIndex, curColIndex);
-            
+            //StartFindPath(curRowIndex, curColIndex);
+            Graphics g = pnlChessBoard.CreateGraphics();
+            this.Refresh();
+            drawImageAtCell(g, Cons.HORSE_SPRITE, 0, 0);
+            StartFindPath(0, 0);
         }
 
 
@@ -99,40 +104,50 @@ namespace Knight_Tour_Solution
                     }
                     result += "\n";
                 }
-                MessageBox.Show("Tim thay duong di\n" + result);
+                MessageBox.Show(this, "Tìm thấy đường đi cho quân Mã !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 pnlChessBoard.Enabled = false;
                 timerShowSolution.Start();
             }
             else
             {
-                MessageBox.Show("Khong tim thay");
+                MessageBox.Show(this, "Không tìm thấy đường đi !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void timerShowSolution_Tick(object sender, EventArgs e)
         {
-            if (i == Cons.TOTAL_CELLS)
+            if (step == Cons.TOTAL_CELLS)
             {
                 timerShowSolution.Stop();
-                MessageBox.Show("Hoàn thành !");
-                btnBegin.Enabled = false;
-                pnlChessBoard.Enabled = true;
+                MessageBox.Show(this, "Hoàn thành !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                resetBoard();
                 return;
             }
             Graphics g = pnlChessBoard.CreateGraphics();
-            drawImageAtCell(g, Cons.HORSE_SPRITE, solutionArray[i, 0], solutionArray[i, 1]);
-            if (i != 0)
+            drawImageAtCell(g, Cons.HORSE_SPRITE, solutionArray[step, 0], solutionArray[step, 1]);
+            // Draw a tick on the knight excel first cell
+            if (step > 1)
             {
-                drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[i - 1, 0], solutionArray[i - 1, 1]);
+                drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[step - 1, 0], solutionArray[step - 1, 1]);
             }
-            Debug.WriteLine(i++);
+            Debug.WriteLine(step++);
+            lblCurrentCellName.Text = Cons.GetCellName(solutionArray[step - 1, 0], solutionArray[step - 1, 1]);
+            lblStep.Text = step.ToString();
         }
 
         private void trackbarSpeed_Scroll(object sender, EventArgs e)
         {
-            int delayTime = trackbarSpeed.Value * 200;
+            int delayTime = trackbarSpeed.Value * Cons.KNIGHT_SPEED;
             Debug.WriteLine(delayTime);
             timerShowSolution.Interval = delayTime;
+        }
+
+        private void resetBoard()
+        {
+            btnBegin.Enabled = false;
+            pnlChessBoard.Enabled = true;
+            step = 0;
+            lblStep.Text = "0";
         }
     }
 }
