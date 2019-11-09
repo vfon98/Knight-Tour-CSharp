@@ -98,13 +98,11 @@ namespace Knight_Tour_Solution
                 //btnBegin.Enabled = true;
                 for (int i = 0; i < Cons.TOTAL_CELLS; i++)
                 {
-                    for (int j = 0; j < 2; j++)
-                    {
-                        result += solutionArray[i, j] + " ";
-                    }
+                    result +="Buoc " + (i+1) + " : " + solutionArray[i, 0] + ", " + solutionArray[i, 1];
                     result += "\n";
                 }
                 MessageBox.Show(this, "Tìm thấy đường đi cho quân Mã !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, result, "Ket qua");
                 pnlChessBoard.Enabled = false;
                 timerShowSolution.Start();
             }
@@ -128,7 +126,9 @@ namespace Knight_Tour_Solution
             // Draw a tick on the knight excel first cell
             if (step > 1)
             {
-                drawImageAtCell(g, Cons.CHECKED_SPRITE, solutionArray[step - 1, 0], solutionArray[step - 1, 1]);
+                int nextCol = solutionArray[step - 1, 0];
+                int nextRow = solutionArray[step - 1, 1];
+                drawImageAtCell(g, Cons.CHECKED_SPRITE, nextCol, nextRow);
             }
             Debug.WriteLine(step++);
             lblCurrentCellName.Text = Cons.GetCellName(solutionArray[step - 1, 0], solutionArray[step - 1, 1]);

@@ -130,7 +130,7 @@
             this.trackbarSpeed.Name = "trackbarSpeed";
             this.trackbarSpeed.Size = new System.Drawing.Size(225, 45);
             this.trackbarSpeed.TabIndex = 0;
-            this.trackbarSpeed.Value = 4;
+            this.trackbarSpeed.Value = 5;
             this.trackbarSpeed.Scroll += new System.EventHandler(this.trackbarSpeed_Scroll);
             // 
             // btnBegin
@@ -223,7 +223,7 @@
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(50, 22);
             this.label20.TabIndex = 4;
-            this.label20.Text = "8 x 8";
+            this.label20.Text = "7 x 7";
             // 
             // lblBeginCellName
             // 
